@@ -22,7 +22,7 @@
     --text-placeholder: #294669;
     --accent: #C4E2F5;
     --accent-hover: #1591DC;
-    --accent-light: #978F66;
+    --accent-light: #C9CAAC;
     --danger: #C44545;
     --radius-sm: 8px;
     --radius-md:12px;
@@ -42,7 +42,7 @@
     background-color: var(--bg);
   
 
-     font-family: "Roboto", sans-serif;
+     font-family: "Lato", sans-serif;
      font-size: 16px;
      line-height: 1.5;
      height: 100vh;
@@ -57,21 +57,189 @@
 
 
         .page-wrapper {
-    
+            /* height: 100vh; */
+            max-width: 920px;
+            margin: 0 auto;
+
+        }
+        .tab-switcher {
+          display: flex;
+          justify-content: center;
+          gap: 4px;
+          margin-bottom: 24px;
+          background: var(--border);
+          padding: 6px;
+          border-radius: var(--radius-lg);
+          width: fit-content;
+         
+          margin-left: auto;
+          margin-right: auto;
+          
+        }
+
+        .tab-btn {
+          background: none;
+          border-color: #294669;
+        
+          border: none;
+          /* border: var(--card-bg); */
+          cursor: pointer;
+          padding: 10px 32px;
+          color: var(--card-bg);
+          font-family: inherit;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: background  var(--transition), color var(--transition);
+          border-radius: var(--radius-lg);
+          
+      
+        }
+
+        .tab-btn.active {
+          background: var(--card-bg);
+          color: var(--text-primary);
+          font-weight: 600;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .cards-container {
+          position: relative;
+        }
+
+        .card {
+          background: var(--card-bg);
+          border-radius: var(--radius-md);
+          padding: 48px;
+         box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+         /* border: 1px solid var(--border) */
+         margin: 0 auto;
+         transform: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .card.hidden {
+            display: none;
+        }
+
+        .card-header {
+          text-align: center;
+          margin-bottom: 36px;
+        }
+
+
+        .card-header h1 {
+          font-family: "Roboto", sans-serif;
+          font-size: 2rem;
+          font-weight: 700;
+          letter-spacing: -0.03em;
+          line-height: 1.2;
+          margin-bottom: 8px;
+       
+        }
+
+        .card-header p {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+        }
+
+        .auth-form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+
+
+        }
+        .field-group {
+           display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .field-label {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          letter-spacing: 0.01em;
+        }
+
+        .field-input {
+          width: 100%;
+          padding: 13px 16px;
+          border: 1.5px solid var(--border);
+          border-radius: var(--radius-sm);
+          outline: none;
+          background-color: rgba(250, 245, 245, 0.3);
+          transition: border-color var(--transition), box-shadow var(--transition);
+          appearance: none;
+          font-family: inherit;
+          font-size: 0.95rem;
+        }
+
+        .field-input::placeholder {
+          color: var(--text-placeholder);
+        }
+
+        .field-input:focus {
+          border-color: var(--accent);
+          box-shadow: 0 0 0 3px rgba(46, 11, 18, 0.1);
+          background-color: var(--accent-light);
 
         }
 
+        .label-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+
+        }
+
+        .forgot-link {
+          font-size: 0.8rem;
+          color: var(--accent);
+          text-decoration: none;
+        }
+
+        .forgot-link:hover {
+          opacity: 0.7;
+          color: var(--border)
+        }
+
+        .password-wrapper {
       
+          position: relative;
+        }
+
+        .password-wrapper .field-input {
+          padding-right: 48px;
+        }
+
+        .toggle-pw {
+          position: absolute;
+          top: 50%;
+          right: 14px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 4px;
+          line-height: 0;
+        }
+
+        .toggle-pw:hover {
+          color: var(--text-secondary)
+     
+        }
+     
+   
 
     </style>
-</head>
+</head>,
 
 <body>
 
-  <div class="toast" id="toast" aria-live="polite" role="status">
+  <!-- <div class="toast" id="toast" aria-live="polite" role="status">
     <span>✓</span>
     <span id="toast-msg"></span>
-  </div>
+  </div> -->
 
   <div class="page-wrapper">
 
@@ -105,7 +273,7 @@
     
       <div class="card" id="card-signin" role="tabpanel" aria-labelledby="tab-signin">
         <div class="card-header">
-          <h1>Welcome back</h1>
+          <h1>sign In</h1>
           <p>Enter your credentials to access your account</p>
         </div>
 
@@ -131,7 +299,7 @@
               aria-describedby="signin-email-error"
             >
             <span class="error-msg" id="signin-email-error" role="alert">
-              ⚠ Please enter a valid email address.
+              <!-- ⚠ Please enter a valid email address. -->
             </span>
           </div>
 
@@ -167,7 +335,7 @@
               </button>
             </div>
             <span class="error-msg" id="signin-pw-error" role="alert">
-               Password must be at least 8 characters.
+               <!-- Password must be at least 8 characters. -->
             </span>
           </div>
 
